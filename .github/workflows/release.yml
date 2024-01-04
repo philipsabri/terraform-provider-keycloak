@@ -35,12 +35,12 @@ jobs:
           go-version-file: 'go.mod'
           cache: true
 
-      #- name: Import GPG key
-      #  id: import_gpg
-      #  uses: crazy-max/ghaction-import-gpg@v2
-      #  env:
-      #    GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-      #    PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v2
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Get tag name
         id: get_tag_name
@@ -63,4 +63,4 @@ jobs:
           args: release --rm-dist --release-notes=${{ steps.build-release-notes.outputs.NOTES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
